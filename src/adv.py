@@ -23,7 +23,6 @@ earlier adventurers. The only exit is to the south."""),
 
 
 # Link rooms together
-
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -39,47 +38,24 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 newPlayer = Player('Boss', room['outside'])
-currentRoom = Room(room[newPlayer.current_room].name, room[newPlayer.current_room].description, room[newPlayer.current_room].n_to, room[newPlayer.current_room].s_to, room[newPlayer.current_room].e_to, room[newPlayer.current_room].w_to)
 # Write a loop that:
-while True:
 
 # * Prints the current room name
-    print('Current Room:', newPlayer.current_room)
 # * Prints the current description (the textwrap module might be useful here).
-    # print(room[newPlayer.current_room].description, room[newPlayer.current_room].n_to.name, room[newPlayer.current_room].s_to.name, [newPlayer.current_room].e_to.name, room[newPlayer.current_room].w_to.name)
 
 # * Waits for user input and decides what to do.
-    cmd = input('Where would you like to go? Input `n` for North, `s` for South, `e` for East or `w` for West. If you would like to quit the game, press `q`. --> ')
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
-    if cmd == 'n':
-        if room[newPlayer.current_room].n_to:
-            newPlayer.current_room = room[newPlayer.current_room].n_to
-            print('You moved north to', newPlayer.current_room)
-        else:
-            
-            print('ERROR: You can\'t move in that direction. Try going s, e, w, or press q to quit.')
-    elif cmd == 's':
-        if room[newPlayer.current_room].s_to == None:
-            print('ERROR: You can\'t move in that direction. Try going n, e, w, or press q to quit.')
-        else:
-            newPlayer.current_room = room[newPlayer.current_room].s_to
-            print('You moved south to', newPlayer.current_room)
-    elif cmd == 'e':
-        if room[newPlayer.current_room].e_to == None:
-            print('ERROR: You can\'t move in that direction. Try going n, s, w, or press q to quit.')
-        else:
-            newPlayer.current_room = room[newPlayer.current_room].e_to
-            print('You moved east to', newPlayer.current_room)
-    elif cmd == 'w':
-        if room[newPlayer.current_room].w_to == None:
-            print('ERROR: You can\'t move in that direction. Try going n, s, e, or press q to quit.')
-        else:
-            newPlayer.current_room = room[newPlayer.current_room].w_to.name
-            print('You moved west to', newPlayer.current_room)
-# If the user enters "q", quit the game.
-    elif cmd == 'q':
+
+while True:
+    cmd = input('Where would you like to go? Input `n` for North, `s` for South, `e` for East or `w` for West. If you would like to quit the game, press `q`. --> ')
+    # CHECKS IF INPUT IS WITHIN THE ARRAY
+    if cmd in ["n", "s", "e", "w"]:
+        # MOVES TO ROOM USING TRAVEL METHOD
+        newPlayer.travel(cmd)
+    elif cmd == "q":
+        # ENDS LOOP
         print('Thanks for playing! Goodbye!')
         exit()
     else:
-        print('end')
+        print("I did not understand that command. Please input `n`, `s`, `e`, or `w`.")
