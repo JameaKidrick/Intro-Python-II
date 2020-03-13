@@ -11,5 +11,6 @@ class Room:
         self.e_to = None
         self.w_to = None
         self.items = None
+        self.monster = None
     def __str__(self):
         return f'\n-----------------------------------------------------------------------\nCurrent Room: {self.name}\n\n{self.description}'
